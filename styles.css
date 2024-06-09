@@ -20,6 +20,7 @@ header {
     width: calc(100% - 20px);
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     padding: 10px;
     background-color: #151515;
     position: fixed;
@@ -41,13 +42,14 @@ h1 {
     cursor: pointer;
     font-size: 16px;
     color: #ffffff;
-    margin-right: 10px;
-    margin-top: 10px;
-    position: absolute;
-    right: 20px;
-    top: 10px;
+    margin-left: 10px;
 }
 
 #connectButton:hover {
     background-color: #2aab51;
+}
+
+#logo {
+    height: 40px; /* Adjust size as needed */
+    margin-right: auto; /* Push the logo to the left */
 }
