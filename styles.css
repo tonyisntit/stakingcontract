@@ -53,3 +53,28 @@ h1 {
     height: 40px; /* Adjust size as needed */
     margin-right: auto; /* Push the logo to the left */
 }
+
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #151515;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+footer a {
+    margin: 0 10px;
+}
+
+.social-icon {
+    height: 30px; /* Adjust size as needed */
+    cursor: pointer;
+}
+
+.social-icon:hover {
+    opacity: 0.8; /* Add a hover effect */
+}
