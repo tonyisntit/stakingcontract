@@ -344,7 +344,8 @@ document.getElementById('stakeButton').addEventListener('click', async () => {
         try {
             stakingContract = new web3.eth.Contract(contractABI, contractAddress);
             const accounts = await web3.eth.getAccounts();
-            await stakingContract.methods.stake(web3.utils.toWei(amount, 'ether')).send({ from: accounts[0] });
+            const gasEstimate = await stakingContract.methods.stake(web3.utils.toWei(amount, 'ether')).estimateGas({ from: accounts[0] });
+            await stakingContract.methods.stake(web3.utils.toWei(amount, 'ether')).send({ from: accounts[0], gas: gasEstimate });
             alert('Staking successful');
         } catch (error) {
             console.error('Staking failed', error);
@@ -360,7 +361,8 @@ document.getElementById('unstakeButton').addEventListener('click', async () => {
     if (amount > 0) {
         try {
             const accounts = await web3.eth.getAccounts();
-            await stakingContract.methods.unstake(web3.utils.toWei(amount, 'ether')).send({ from: accounts[0] });
+            const gasEstimate = await stakingContract.methods.unstake(web3.utils.toWei(amount, 'ether')).estimateGas({ from: accounts[0] });
+            await stakingContract.methods.unstake(web3.utils.toWei(amount, 'ether')).send({ from: accounts[0], gas: gasEstimate });
             alert('Unstaking successful');
         } catch (error) {
             console.error('Unstaking failed', error);
@@ -374,7 +376,8 @@ document.getElementById('unstakeButton').addEventListener('click', async () => {
 document.getElementById('claimRewardButton').addEventListener('click', async () => {
     try {
         const accounts = await web3.eth.getAccounts();
-        await stakingContract.methods.claimReward().send({ from: accounts[0] });
+        const gasEstimate = await stakingContract.methods.claimReward().estimateGas({ from: accounts[0] });
+        await stakingContract.methods.claimReward().send({ from: accounts[0], gas: gasEstimate });
         alert('Rewards claimed successfully');
     } catch (error) {
         console.error('Claiming rewards failed', error);
@@ -387,7 +390,8 @@ document.getElementById('claimRewardButton').addEventListener('click', async () 
 async function loadRewardPool() {
     try {
         const accounts = await web3.eth.getAccounts();
-        await stakingContract.methods.loadRewardPool().send({ from: accounts[0] });
+        const gasEstimate = await stakingContract.methods.loadRewardPool().estimateGas({ from: accounts[0] });
+        await stakingContract.methods.loadRewardPool().send({ from: accounts[0], gas: gasEstimate });
         alert('Reward pool loaded successfully');
     } catch (error) {
         console.error('Loading reward pool failed', error);
@@ -399,7 +403,8 @@ async function loadRewardPool() {
 async function distributeRewards() {
     try {
         const accounts = await web3.eth.getAccounts();
-        await stakingContract.methods.distributeRewards().send({ from: accounts[0] });
+        const gasEstimate = await stakingContract.methods.distributeRewards().estimateGas({ from: accounts[0] });
+        await stakingContract.methods.distributeRewards().send({ from: accounts[0], gas: gasEstimate });
         alert('Rewards distributed successfully');
     } catch (error) {
         console.error('Distributing rewards failed', error);
