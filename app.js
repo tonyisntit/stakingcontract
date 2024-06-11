@@ -331,6 +331,28 @@ window.addEventListener('load', async () => {
     ];
 
     const stakingContract = new web3.eth.Contract(contractABI, contractAddress);
+    const tokenAddress = '0xf90DeC6C5E36572a0bb10E54B5fB67a0A7dB1058';
+    const tokenABI = [
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_owner",
+                    "type": "address"
+                }
+            ],
+            "name": "balanceOf",
+            "outputs": [
+                {
+                    "name": "balance",
+                    "type": "uint256"
+                }
+            ],
+            "type": "function"
+        },
+        // Add other token functions here if needed
+    ];
+    const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
     let currentAccount = null;
 
     const connectWalletButton = document.getElementById('connectWallet');
@@ -345,8 +367,8 @@ window.addEventListener('load', async () => {
             console.log('Connected account:', currentAccount);
             accountSpan.innerText = currentAccount;
 
-            const balance = await web3.eth.getBalance(currentAccount);
-            console.log('Account balance:', balance);
+            const balance = await tokenContract.methods.balanceOf(currentAccount).call();
+            console.log('ST Token balance:', balance);
             balanceSpan.innerText = web3.utils.fromWei(balance, 'ether');
 
             walletInfo.classList.remove('hidden');
