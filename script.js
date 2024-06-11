@@ -1,108 +1,49 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const player1BalanceEl = document.getElementById("player1-balance");
-    const player2BalanceEl = document.getElementById("player2-balance");
-    const player1BetEl = document.getElementById("player1-bet");
-    const player1JoinBtn = document.getElementById("player1-join");
-    const player2AcceptBtn = document.getElementById("player2-accept");
-    const countdownEl = document.getElementById("countdown");
-    const winnerEl = document.getElementById("winner");
-    const player1StatusEl = document.getElementById("player1-status");
-    const player2StatusEl = document.getElementById("player2-status");
-
-    let player1Balance = 1000;
-    let player2Balance = 1000;
-    let betAmount = 0;
-
-    player1JoinBtn.addEventListener("click", () => {
-        betAmount = parseInt(player1BetEl.value);
-        if (isNaN(betAmount) || betAmount <= 0 || betAmount > player1Balance) {
-            player1StatusEl.textContent = "Invalid bet amount";
-            return;
-        }
-        player1Balance -= betAmount;
-        player1BalanceEl.textContent = player1Balance;
-        player1StatusEl.textContent = `Player 1 bet ${betAmount} gems. Waiting for Player 2 to accept...`;
-    });
-
-    player2AcceptBtn.addEventListener("click", () => {
-        if (betAmount <= 0 || betAmount > player2Balance) {
-            player2StatusEl.textContent = "Invalid bet amount or no bet placed by Player 1";
-            return;
-        }
-        player2Balance -= betAmount;
-        player2BalanceEl.textContent = player2Balance;
-        player2StatusEl.textContent = `Player 2 accepted the bet of ${betAmount} gems.`;
-        startCountdown();
-    });
-
-    function startCountdown() {
-        let timeLeft = 3;
-        countdownEl.textContent = `Game starts in ${timeLeft}...`;
-        winnerEl.textContent = "";
-        
-        const countdownInterval = setInterval(() => {
-            timeLeft--;
-            countdownEl.textContent = `Game starts in ${timeLeft}...`;
-            if (timeLeft <= 0) {
-                clearInterval(countdownInterval);
-                determineWinner();
-            }
-        }, 1000);
+window.addEventListener('load', async () => {
+    if (typeof window.ethereum !== 'undefined') {
+        console.log('MetaMask is installed!');
+    } else {
+        alert('Please install MetaMask to use this dApp!');
     }
 
-    function determineWinner() {
-        const result = Math.random() * 100;
-        let winner = "";
-        if (result < 49) {
-            player1Balance += betAmount * 2;
-            winner = "Player 1 wins!";
-        } else if (result < 98) {
-            player2Balance += betAmount * 2;
-            winner = "Player 2 wins!";
-        } else {
-            player1Balance += Math.floor(betAmount * 0.99);
-            player2Balance += Math.floor(betAmount * 0.99);
-            winner = "It's a draw!";
-        }
-        
-        player1BalanceEl.textContent = player1Balance;
-        player2BalanceEl.textContent = player2Balance;
-        countdownEl.textContent = "";
-        winnerEl.textContent = winner;
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
 
-        // Reset game state
-        setTimeout(resetGame, 3000);
-    }
+    const contractAddress = 'YOUR_CONTRACT_ADDRESS';
+    const adminAddress = '0xECA9C93f6125eD308a034cad93fFb315Ae0E8f82';
+    const contractABI = [
+        // Add the ABI of your contract here
+    ];
 
-    function resetGame() {
-        betAmount = 0;
-        player1BetEl.value = "";
-        player1StatusEl.textContent = "";
-        player2StatusEl.textContent = "";
-        winnerEl.textContent = "";
-    }
-});
+    const stakingContract = new web3.eth.Contract(contractABI, contractAddress);
+    let currentAccount = null;
 
+    const connectWalletButton = document.getElementById('connectWallet');
+    const accountSpan = document.getElementById('account');
+    const balanceSpan = document.getElementById('balance');
 
-document.addEventListener("DOMContentLoaded", () => {
-    const rulesButton = document.getElementById("rules-button");
-    const rulesPopup = document.getElementById("popup-overlay");
-    const closePopupButton = document.getElementById("close-popup"); // Close button inside the popup
-    const closePopupButtonOutside = document.getElementById("popup-overlay"); // Close button outside the popup
+    connectWalletButton.addEventListener('click', async () => {
+        const accounts = await web3.eth.requestAccounts();
+        currentAccount = accounts[0];
+        accountSpan.innerText = currentAccount;
 
-    rulesButton.addEventListener("click", () => {
-        rulesPopup.style.display = "block"; // Show the popup overlay
+        const balance = await stakingContract.methods.balanceOf(currentAccount).call();
+        balanceSpan.innerText = web3.utils.fromWei(balance, 'ether');
     });
 
-    // Close the popup when clicking on the close button inside the popup
-    closePopupButton.addEventListener("click", () => {
-        rulesPopup.style.display = "none";
+    const stakeButton = document.getElementById('stakeButton');
+    stakeButton.addEventListener('click', async () => {
+        const amount = document.getElementById('stakeAmount').value;
+        await stakingContract.methods.stake(web3.utils.toWei(amount, 'ether')).send({ from: currentAccount });
     });
 
-    // Close the popup when clicking outside of it
-    closePopupButtonOutside.addEventListener("click", (event) => {
-        if (event.target === rulesPopup) {
-            rulesPopup.style.display = "none";
-        }
+    const unstakeButton = document.getElementById('unstakeButton');
+    unstakeButton.addEventListener('click', async () => {
+        const amount = document.getElementById('unstakeAmount').value;
+        await stakingContract.methods.unstake(web3.utils.toWei(amount, 'ether')).send({ from: currentAccount });
+    });
+
+    const claimRewardButton = document.getElementById('claimRewardButton');
+    claimRewardButton.addEventListener('click', async () => {
+        await stakingContract.methods.claimReward().send({ from: currentAccount });
     });
 });
