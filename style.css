@@ -1,135 +1,38 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #151515;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    color: #dbdbdb;
-}
-
-#container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    position: relative;
-}
-
-header {
-    width: calc(100% - 20px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #151515;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
-#logo {
-    height: 100px;
-}
-
-.nav-buttons {
-    display: flex;
-    gap: 20px; /* Add spacing between buttons */
-}
-
-#connectWalletButton {
-    padding: 10px 10px;
-    background-color: #006720;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #ffffff;
-    margin-left: 10px;
-    margin-right: 40px;
-}
-
-#connectWalletButton:hover {
-    background-color: #2aab51;
-}
-
-.textButton {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.textButton:focus {
-    outline: none;
-}
-
-.textButton:hover {
-    text-decoration: underline;
-}
-
-footer {
-    width: 100%;
+    background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    background-color: #151515;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    height: 100vh;
+    margin: 0;
 }
 
-footer a {
-    margin: 0 10px;
-}
-
-.social-icon {
-    height: 30px; /* Adjust size as needed */
-    cursor: pointer;
-}
-
-.social-icon:hover {
-    opacity: 0.8; /* Add a hover effect */
-}
-
-/* Modal styles */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+#app {
+    background: #fff;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    color: #000; /* Black text for readability */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-.close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: black;
-    text-decoration: none;
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    border-radius: 4px;
     cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+input[type="number"] {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
