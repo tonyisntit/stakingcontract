@@ -3,58 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlipZ</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Staking dApp</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Flipz</h1>
-        <button id="rules-button">Rules</button> <!-- Add rules button -->
-    </header>
-    <main>
-        <div id="game">
-            <div id="player1">
-                <h3>Player 1</h3>
-                <p>Balance: <span id="player1-balance">1000</span> gems</p>
-                <input type="number" id="player1-bet" placeholder="Bet amount">
-                <button id="player1-join">Join</button>
-                <p id="player1-status"></p>
-            </div>
-            <div id="result">
-                <p id="countdown"></p>
-                <p id="winner"></p>
-            </div>
-            <div id="player2">
-                <h3>Player 2</h3>
-                <p>Balance: <span id="player2-balance">1000</span> gems</p>
-                <button id="player2-accept">Accept Bet</button>
-                <p id="player2-status"></p>
-            </div>
+    <div id="app">
+        <h1>Staking dApp</h1>
+        <button id="connectWallet">Connect Wallet</button>
+        <div id="walletInfo">
+            <p>Account: <span id="account"></span></p>
+            <p>Balance: <span id="balance"></span> ST</p>
         </div>
-
-        <div class="popup-overlay" id="popup-overlay">
-            <div class="popup" id="rules-popup">
-                <div class="popup-content">
-                    <span class="close" id="close-popup">&times;</span> <!-- Close button -->
-                    <div class="popup-content">
-                        <h2>Game Fundamentals:</h2>
-                        <p>Game Type: One-on-One.</p>
-                        <p>Player 1 Action: Player 1 joins, specifies the number of gems to bet.</p>
-                        <p>Player 2 Joins: Player 2 decides whether to accept the bet.</p>
-                        <p>Bet Acceptance: If Player 2 accepts the bet, an equal amount of gems is immediately deducted from their balance.</p>
-                        <p>Countdown: A 3-second countdown begins, followed by an animation to determine the winner.</p>
-                        <p>Winning Scenario: All the gems bet are awarded to the winner.</p>
-                        <p>Draw Scenario: There is a possibility of a draw, in which case each player receives their bet back minus a 1% fee.</p>
-                        <h2>Game Math:</h2>
-                        <p>Win Probability: Each player has a 49% chance of winning.</p>
-                        <p>Draw Probability: There is a 2% chance of a draw.</p>
-                        <!-- Add more details about the game math if needed -->
-                    </div>
-                </div>
-            </div>
+        <div id="staking">
+            <h2>Stake Tokens</h2>
+            <input type="number" id="stakeAmount" placeholder="Amount to stake" min="1">
+            <button id="stakeButton">Stake</button>
         </div>
-
-    </main>
-    <script src="script.js"></script>
+        <div id="unstaking">
+            <h2>Unstake Tokens</h2>
+            <input type="number" id="unstakeAmount" placeholder="Amount to unstake" min="1">
+            <button id="unstakeButton">Unstake</button>
+        </div>
+        <div id="rewards">
+            <h2>Claim Rewards</h2>
+            <button id="claimRewardButton">Claim Rewards</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
