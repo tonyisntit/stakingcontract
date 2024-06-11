@@ -9,15 +9,15 @@ window.addEventListener('load', async () => {
     await window.ethereum.enable();
 
     const contractAddress = 'YOUR_CONTRACT_ADDRESS';
-    const adminAddress = '0xECA9C93f6125eD308a034cad93fFb315Ae0E8f82';
     const contractABI = [
-        // Add the ABI of your contract here
+        // Add your contract's ABI here
     ];
 
     const stakingContract = new web3.eth.Contract(contractABI, contractAddress);
     let currentAccount = null;
 
     const connectWalletButton = document.getElementById('connectWallet');
+    const walletInfo = document.getElementById('walletInfo');
     const accountSpan = document.getElementById('account');
     const balanceSpan = document.getElementById('balance');
 
@@ -28,6 +28,11 @@ window.addEventListener('load', async () => {
 
         const balance = await stakingContract.methods.balanceOf(currentAccount).call();
         balanceSpan.innerText = web3.utils.fromWei(balance, 'ether');
+
+        walletInfo.classList.remove('hidden');
+        document.getElementById('staking').classList.remove('hidden');
+        document.getElementById('unstaking').classList.remove('hidden');
+        document.getElementById('rewards').classList.remove('hidden');
     });
 
     const stakeButton = document.getElementById('stakeButton');
