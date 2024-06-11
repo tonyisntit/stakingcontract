@@ -349,7 +349,7 @@ document.getElementById('stakeButton').addEventListener('click', async () => {
             alert('Staking successful');
         } catch (error) {
             console.error('Staking failed', error);
-            alert('Staking failed');
+            alert('Staking failed: ' + error.message);
         }
     } else {
         alert('Enter a valid amount');
@@ -366,7 +366,7 @@ document.getElementById('unstakeButton').addEventListener('click', async () => {
             alert('Unstaking successful');
         } catch (error) {
             console.error('Unstaking failed', error);
-            alert('Unstaking failed');
+            alert('Unstaking failed: ' + error.message);
         }
     } else {
         alert('Enter a valid amount');
@@ -381,7 +381,7 @@ document.getElementById('claimRewardButton').addEventListener('click', async () 
         alert('Rewards claimed successfully');
     } catch (error) {
         console.error('Claiming rewards failed', error);
-        alert('Claiming rewards failed');
+        alert('Claiming rewards failed: ' + error.message);
     }
 });
 
@@ -395,7 +395,7 @@ async function loadRewardPool() {
         alert('Reward pool loaded successfully');
     } catch (error) {
         console.error('Loading reward pool failed', error);
-        alert('Loading reward pool failed');
+        alert('Loading reward pool failed: ' + error.message);
     }
 }
 
@@ -408,6 +408,6 @@ async function distributeRewards() {
         alert('Rewards distributed successfully');
     } catch (error) {
         console.error('Distributing rewards failed', error);
-        alert('Distributing rewards failed');
+        alert('Distributing rewards failed: ' + error.message);
     }
 }
