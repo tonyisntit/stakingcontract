@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #121212;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,10 +10,10 @@ body {
 }
 
 #app {
-    background: #fff;
+    background: #1e1e1e;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: center;
 }
 
@@ -20,14 +21,14 @@ button {
     padding: 10px 20px;
     margin-top: 10px;
     border: none;
-    background: #007bff;
-    color: #fff;
+    background: #6200ea;
+    color: #ffffff;
     border-radius: 4px;
     cursor: pointer;
 }
 
 button:hover {
-    background: #0056b3;
+    background: #3700b3;
 }
 
 input[type="number"] {
@@ -35,4 +36,10 @@ input[type="number"] {
     margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: #333;
+    color: #ffffff;
+}
+
+.hidden {
+    display: none;
 }
