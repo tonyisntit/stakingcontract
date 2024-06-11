@@ -350,8 +350,30 @@ window.addEventListener('load', async () => {
             ],
             "type": "function"
         },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_spender",
+                    "type": "address"
+                },
+                {
+                    "name": "_value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "approve",
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "bool"
+                }
+            ],
+            "type": "function"
+        },
         // Add other token functions here if needed
     ];
+
     const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
     let currentAccount = null;
 
@@ -384,7 +406,14 @@ window.addEventListener('load', async () => {
     stakeButton.addEventListener('click', async () => {
         try {
             const amount = document.getElementById('stakeAmount').value;
-            await stakingContract.methods.stake(web3.utils.toWei(amount, 'ether')).send({ from: currentAccount });
+            const amountInWei = web3.utils.toWei(amount, 'ether');
+
+            // Step 1: Approve the staking contract to transfer tokens on the user's behalf
+            await tokenContract.methods.approve(contractAddress, amountInWei).send({ from: currentAccount });
+            console.log('Approval successful');
+
+            // Step 2: Stake the tokens
+            await stakingContract.methods.stake(amountInWei).send({ from: currentAccount });
             console.log('Staked', amount);
         } catch (error) {
             console.error('Error staking tokens', error);
