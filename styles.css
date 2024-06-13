@@ -8,7 +8,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url('bg1.png'); /* Make sure to provide the correct path to your image */
+    background-image: url('bg2.png'); /* Make sure to provide the correct path to your image */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -17,7 +17,7 @@ body {
 
 /* Header */
 .header {
-    background-color: rgba(36, 41, 44, 0.285); /* Adjust the alpha value as needed */
+    background-color: rgba(0, 0, 0, 0.053); /* Adjust the alpha value as needed */
     color: #fff;
     padding: 10px;
     display: flex;
@@ -120,7 +120,7 @@ body {
 
 /* Dropdown */
 .dropbtn {
-    background-color: #24292c;
+    background-color: rgba(0, 0, 0, 0.053);
     color: #8f8f8f;
     font-size: 16px;
     border: none;
@@ -317,6 +317,7 @@ body {
 
 .arrow {
     position: absolute;
+    background-color: rgba(0, 0, 0, 0);
     top: 10px;
     left: 50%;
     width: 0;
@@ -325,6 +326,7 @@ body {
     border-right: 10px solid transparent;
     border-top: 20px solid #1b1b1b;
     transform: translateX(-50%) rotate(180deg);
+    display: none;
 }
 
 .player-list {
@@ -339,7 +341,7 @@ body {
 .player {
     width: 110px;
     height: 150px;
-    background-color: #24292c;
+    background-color: rgba(45, 45, 45, 0);
     color: white;
     font-size: 15px;
     display: flex;
@@ -367,7 +369,7 @@ body {
     position: relative;
     width: 90px; /* Increase width for more visual impact */
     height: 100px; /* Increase height for more visual impact */
-    background-color: #24292c; /* Green background color */
+    background-color: rgba(0, 0, 0, 0.053);
     color: white;
     font-size: 14px; /* Increase font size for better readability */
     display: flex;
@@ -389,7 +391,7 @@ body {
     font-size: 14px; /* Decrease font size for better balance */
     font-weight: bold;
     color: #0fdf6d;
-    background-color: #24292c;
+    background-color: rgba(0, 0, 0, 0);
     border-radius: 8px; /* Rounded corners for label */
     padding: 5px 10px; /* Add padding for better appearance */
     margin-bottom: 10px; /* Increase margin for spacing */
