@@ -52,7 +52,7 @@ body {
     background-color: rgba(36, 41, 44, 0.8); /* Background color to match the theme */
     padding: 2px 8px;
     border-radius: 12px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.633);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
 }
 
 /* Balances */
