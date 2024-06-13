@@ -27,7 +27,7 @@ body {
     width: 100%;
     top: 0;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.647);
-    height: 48px;
+    height: 52px;
     z-index: 1000;
 }
 /* Logo */
@@ -38,7 +38,7 @@ body {
 }
 
 .logo {
-    max-width: 148px;
+    max-width: 160px;
     max-height: 80px;
     margin: 2px 15px 0 12px;
     height: auto;
@@ -49,10 +49,11 @@ body {
     display: inline-block;
     color: #ffffff;
     font-size: 12px;
-    background-color: rgba(36, 41, 44, 0.8); /* Background color to match the theme */
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0); /* Background color to match the theme */
     padding: 2px 8px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 1);
 }
 
 /* Balances */
@@ -184,7 +185,7 @@ body {
     display: flex;
     align-items: center;
     text-align: center;
-    background-color: rgba(36, 41, 44, 0.285);
+    background-color: rgba(41, 43, 46, 0.501);
     padding: 18px;
     border-radius: 18px;
     color: #e8e8e8;
