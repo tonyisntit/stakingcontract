@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOTS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+            <p id="token-price" class="token-price"></p> <!-- Token price element -->
+        </div>
+        <div class="balance-wrapper">
+            <div class="lots-balance">
+                <img src="logoO.png" alt="LOTS" class="currency-icon">
+                <p class="balance">25,000,000</p>
+            </div>
+        </div>
+        <div class="balance-wrapper">
+            <div class="usd-balance">
+                <img src="usdtlogo.png" alt="USD" class="currency-icon">
+                <p class="balance">350</p>
+            </div>
+        </div>
+        <div class="register-wrapper">
+            <button id="register-tab" class="register-btn">Wallet</button>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">&#9776;</button>
+            <div class="dropdown-content">
+                <a href="index.html" id="buy-tab" class="nav-link">Account</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="top-buttons">
+        <button class="how-it-works-btn">How it works</button>
+        <button class="buy-lots-btn">Buy LOTS</button>
+    </div>
+
+    <div class="ppjpwrapper-container">
+        <div class="prize-pool-wrapper">
+            <img src="poolbg.png" alt="Prize Pool Image" class="wrapper-image">
+            <div class="wrapper-content">
+                <h2>PrizePool</h2>
+                <p class="prize-amount">$2,350</p>
+            </div>
+        </div>
+        <div class="jackpot-wrapper">
+            <img src="jackpotbg.png" alt="Jackpot Image" class="wrapper-image">
+            <div class="wrapper-content">
+                <h2>Jackpot</h2>
+                <p class="jackpot-amount">$54,420</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="vertical-line"></div>
+        <div class="arrow" id="arrow"></div>
+        <div class="container">
+            <div class="player-list" id="player-list"></div>
+        </div>
+    </div>
+    <div id="countdown"></div>
+
+    <button id="resetButton">Reset</button>
+
+    <footer>
+        <div class="footer-content">
+            <p class="rights">© 2024 LOTS. All rights reserved.</p>
+            <div class="social-media">
+                <a href="https://discord.gg/dqMGGjnU" target="_blank"><img src="discord.png" alt="Discord"></a>
+                <a href="#"><img src="twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="tele.png" alt="Tele"></a>
+            </div>
+            <div class="partnership">
+                <p>Partnered with:</p>
+                <a href="https://monstro.fun/" target="_blank"><img src="monstro-logo.png" alt="Monstro.oi Logo" class="partner-logo"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+/* Main body styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('bg1.png'); /* Make sure to provide the correct path to your image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+}
+
+/* Header */
+.header {
+    background-color: rgba(36, 41, 44, 0.285); /* Adjust the alpha value as needed */
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.647);
+    height: 48px;
+    z-index: 1000;
+}
+/* Logo */
+.logo-container {
+    flex: 1;
+    display: flex;
+    align-items: center; /* Center vertically */
+}
+
+.logo {
+    max-width: 140px;
+    max-height: 80px;
+    margin: 2px 15px 0 12px;
+    height: auto;
+}
+
+/* Token Price */
+.token-price {
+    display: inline-block;
+    color: #ffffff;
+    font-size: 12px;
+    background-color: rgba(36, 41, 44, 0.8); /* Background color to match the theme */
+    padding: 2px 8px;
+    border-radius: 12px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.633);
+}
+
+/* Balances */
+.currency-icon {
+    width: 20px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.balance-wrapper {
+    background-color: #161616;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    padding: 1px 1px;
+    border-radius: 8px;
+    height: 30px;
+    box-shadow: inset 0 0 12px 2px rgba(0, 0, 0, 0.7);
+}
+
+.lots-balance, .usd-balance {
+    padding: 15px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.token-price {
+    margin-left: 10px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.balance p {
+    color: #fff;
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Register Button */
+.register-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.register-btn {
+    background: linear-gradient(70deg, #002312, #007025, #42f46c);
+    color: #ededed;
+    font-weight: bolder;
+    font-size: 18px;
+    border: 2px solid #83ffb0;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: inset 0 0 15px rgba(218, 218, 218, 0.5);
+}
+
+.register-btn:hover {
+    background: linear-gradient(70deg, #034528, #42e87c, #94ffbd);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.7);
+    border-color: #83ffb0;
+}
+
+/* Dropdown */
+.dropbtn {
+    background-color: #24292c;
+    color: #8f8f8f;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.dropbtn:hover {
+    color: #ffffff;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(51, 51, 51)(36, 41, 44, 0.285);
+    z-index: 1;
+    right: 0;
+    top: 100%;
+    border-radius: 8px;
+    padding: 8px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.495);
+}
+
+.dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #414d54; /* Adjust the color as desired */
+    border: 1px solid #83ffb0;
+    border-radius: 8px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Container for Prize Pool and Jackpot */
+.ppjpwrapper-container {
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+    margin-top: 60px; /* Keep some margin below the header */
+    position: sticky; /* Stick to the top */
+    top: 60px; /* Height of the header */
+}
+
+/* Prize Pool & Jackpot */
+.prize-pool-wrapper, .jackpot-wrapper {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(36, 41, 44, 0.285);
+    padding: 18px;
+    border-radius: 18px;
+    color: #e8e8e8;
+    box-shadow: 0px 0px 40px rgb(0, 0, 0);
+    flex: 1;
+    margin-top: 70px;
+    z-index: 999;
+}
+
+.wrapper-image {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 14px;
+}
+
+.wrapper-content {
+    text-align: left;
+}
+
+.prize-pool-wrapper h2, .jackpot-wrapper h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #0fdf6d;
+}
+
+.prize-amount, .jackpot-amount {
+    margin: 10px 0 0;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* Top Buttons */
+.top-buttons {
+    position: fixed;
+    top: 120px; /* Adjusted this value to move the buttons down */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center; /* Centering the buttons */
+    gap: 610px; /* Adding space between the buttons */
+    z-index: 1001; /* Make sure it's above other content */
+    padding: 0 20px;
+}
+
+.how-it-works-btn, .buy-lots-btn {
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.how-it-works-btn {
+    background-color: #252f35;
+    color: #fff;
+    border: 2px solid #4e8d65;
+}
+
+.buy-lots-btn {
+    background: linear-gradient(70deg, #002312, #007025, #42f46c);
+    color: #ededed;
+    font-weight: bolder;
+    font-size: 18px;
+    border: 2px solid #83ffb0;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: inset 0 0 15px rgba(218, 218, 218, 0.5);
+}
+
+.how-it-works-btn:hover {
+    background-color: #414d54; /* Adjust the color as desired */
+    border: 2px solid #83ffb0;
+}
+
+.buy-lots-btn:hover {
+    background: linear-gradient(70deg, #034528, #42e87c, #94ffbd);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.7);
+    border-color: #83ffb0;
+}
+
+/* LOTTO */
+.wrapper {
+    width: 800px; /* Set a fixed width */
+    height: 100px; /* Set a fixed width */
+    overflow-x: auto;
+    position: relative;
+    border-radius: 20px;
+    margin-top: 25px;
+}
+
+.wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+    z-index: 1;
+}
+
+.vertical-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: rgb(0, 0, 0);
+    z-index: 9999;
+    transform: translateX(-50%);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Hide Scrollbar */
+.wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.container {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.arrow {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid #1b1b1b;
+    transform: translateX(-50%) rotate(180deg);
+}
+
+.player-list {
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.player {
+    width: 110px;
+    height: 150px;
+    background-color: #24292c;
+    color: white;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 1px solid #ffffff;
+}
+
+.player.selected {
+    background-color: #0fdf6d;
+    box-shadow: 0 0 10px rgba(233, 233, 233, 0.7);
+}
+
+/* Selected Players */
+.selected-players-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 50%;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.selected-player {
+    position: relative;
+    width: 90px; /* Increase width for more visual impact */
+    height: 100px; /* Increase height for more visual impact */
+    background-color: #24292c; /* Green background color */
+    color: white;
+    font-size: 14px; /* Increase font size for better readability */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    border-radius: 20px; /* Rounded corners */
+    margin: 14px; /* Increase margin for spacing between winners */
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.693); /* Add shadow for depth */
+    overflow: hidden; /* Hide overflow if content exceeds box */
+    transition: transform 0.3s; /* Add smooth transition effect */
+}
+
+.selected-player:hover {
+    transform: scale(1.1); /* Enlarge on hover for interactive feel */
+}
+
+.label {
+    font-size: 14px; /* Decrease font size for better balance */
+    font-weight: bold;
+    color: #0fdf6d;
+    background-color: #24292c;
+    border-radius: 8px; /* Rounded corners for label */
+    padding: 5px 10px; /* Add padding for better appearance */
+    margin-bottom: 10px; /* Increase margin for spacing */
+}
+
+.player-name {
+    font-size: 14px; /* Increase font size for better readability */
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.amount {
+    font-size: 16px; /* Increase font size for better readability */
+    color: #ffffff;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#countdown {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+#resetButton {
+    display: none;
+}
+
+/* Footer */
+footer {
+    background-color: rgba(119, 119, 119, 0); /* Adjust the alpha value as needed */
+    color: #c6c6c6;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 960px;
+    max-height: 5px;
+}
+
+.rights {
+    margin-left: 20px;
+}
+
+.social-media {
+    display: flex;
+    margin-right: 20px;
+}
+
+.social-media a {
+    margin-right: 15px;
+    display: inline-block;
+}
+
+.social-media img {
+    height: 25px;
+    width: auto;
+}
+
+/* Adjust size for specific social media icons */
+.social-link img[src="discord.png"],
+.social-link img[src="twitter.png"] {
+    max-height: 0.6px;
+}
+
+/* Partnership Section */
+.partnership {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.partnership p {
+    margin: 0;
+    margin-right: 10px;
+    font-size: 14px;
+    color: #d8d8d8;
+}
+
+.partner-logo {
+    height: 26px;
+    width: auto;
+    border-radius: 25px;
+}
