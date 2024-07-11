@@ -1,188 +1,120 @@
-// Lotto
+const USDT_TO_GEMS = 1;
+const BNB_TO_GEMS = 530;
+const LOTS_PRICE = 0.0002; // LOTS price in dollars
+const BNB_PRICE = 530; // BNB price in USD
+const GAS_FEE_BNB = 0.001; // Gas fee in BNB
 
-document.addEventListener('DOMContentLoaded', () => {
-    const playerList = document.getElementById('player-list');
-    const arrow = document.getElementById('arrow');
-    const selectedPlayersWrapper = document.createElement('div');
-    selectedPlayersWrapper.className = 'selected-players-wrapper';
-    document.body.appendChild(selectedPlayersWrapper);
+let gemsBalance = 0;
+let lotsBalance = 0;
 
-    const totalPlayers = 250;
-    let countdownInterval;
-    let animation;
-    let countdownCounter = 0;
+function updateBalances() {
+    document.getElementById('gems-balance').innerText = gemsBalance.toFixed(2);
+    document.getElementById('lots-balance').innerText = lotsBalance.toFixed(2);
+}
 
-    // Generate player elements
-    const players = Array.from({ length: totalPlayers }, (_, i) => `Player ${i + 1}`);
+function logTransaction(depositLog, depositFee, withdrawalLog, withdrawalFee) {
+    const logTableBody = document.getElementById('log-table-body');
+    const row = document.createElement('tr');
 
-    // Shuffle the player array
-    players.sort(() => Math.random() - 0.5);
+    const depositLogCell = document.createElement('td');
+    depositLogCell.textContent = depositLog || 'n/a';
+    row.appendChild(depositLogCell);
 
-    // Append players to the player list
-    players.forEach(playerName => {
-        const playerDiv = document.createElement('div');
-        playerDiv.className = 'player';
-        playerDiv.textContent = playerName;
-        playerList.appendChild(playerDiv);
-    });
+    const depositFeeCell = document.createElement('td');
+    depositFeeCell.textContent = depositFee || 'n/a';
+    row.appendChild(depositFeeCell);
 
-    function resetAnimationAndHighlight() {
-        if (animation) {
-            animation.kill();
-        }
-        const selectedPlayer = document.querySelector('.player.selected');
-        if (selectedPlayer) {
-            selectedPlayer.classList.remove('selected');
-        }
+    const withdrawalLogCell = document.createElement('td');
+    withdrawalLogCell.textContent = withdrawalLog || 'n/a';
+    row.appendChild(withdrawalLogCell);
+
+    const withdrawalFeeCell = document.createElement('td');
+    withdrawalFeeCell.textContent = withdrawalFee || 'n/a';
+    row.appendChild(withdrawalFeeCell);
+
+    logTableBody.insertBefore(row, logTableBody.firstChild);
+}
+
+function convertUSDT() {
+    let usdtAmount = parseFloat(document.getElementById('usdt-deposit').value);
+    if (isNaN(usdtAmount) || usdtAmount <= 0) {
+        alert('Please enter a valid USDT amount.');
+        return;
+    }
+    let gasFee = GAS_FEE_BNB * BNB_PRICE; // Gas fee in USD
+    let gems = usdtAmount * USDT_TO_GEMS - gasFee;
+    gemsBalance += gems;
+    document.getElementById('usdt-result').innerText = `Converted to ${gems.toFixed(2)} Gems (Gas Fee: ${gasFee.toFixed(2)} USD)`;
+    logTransaction(`${usdtAmount.toFixed(2)} USDT, Received ${gems.toFixed(2)} Gems`, `${gasFee.toFixed(2)} USD`, null, null);
+    updateBalances();
+}
+
+function convertBNB() {
+    let bnbAmount = parseFloat(document.getElementById('bnb-deposit').value);
+    if (isNaN(bnbAmount) || bnbAmount <= 0) {
+        alert('Please enter a valid BNB amount.');
+        return;
+    }
+    let gasFee = GAS_FEE_BNB * BNB_PRICE; // Gas fee in USD
+    let gems = bnbAmount * BNB_TO_GEMS - gasFee;
+    gemsBalance += gems;
+    document.getElementById('bnb-result').innerText = `Converted to ${gems.toFixed(2)} Gems (Gas Fee: ${gasFee.toFixed(2)} USD)`;
+    logTransaction(`${bnbAmount.toFixed(2)} BNB, Received ${gems.toFixed(2)} Gems`, `${gasFee.toFixed(2)} USD`, null, null);
+    updateBalances();
+}
+
+function convertLOTS() {
+    let lotsAmount = parseFloat(document.getElementById('lots-deposit').value);
+    if (isNaN(lotsAmount) || lotsAmount <= 0) {
+        alert('Please enter a valid LOTS amount.');
+        return;
+    }
+    let gasFeeInDollars = GAS_FEE_BNB * BNB_PRICE; // Gas fee in USD
+    let gasFeeInLots = gasFeeInDollars / LOTS_PRICE;
+    let lots = lotsAmount - gasFeeInLots;
+    lotsBalance += lots;
+    document.getElementById('lots-result').innerText = `Converted to ${lots.toFixed(2)} Lots (Gas Fee: ${gasFeeInLots.toFixed(2)} LOTS, ${gasFeeInDollars.toFixed(2)} USD)`;
+    logTransaction(`${lotsAmount.toFixed(2)} LOTS, Received ${lots.toFixed(2)} LOTS`, `${gasFeeInDollars.toFixed(2)} USD`, null, null);
+    updateBalances();
+}
+
+function withdrawLOTS() {
+    let lotsAmount = parseFloat(document.getElementById('lots-withdraw').value);
+    if (isNaN(lotsAmount) || lotsAmount <= 0) {
+        alert('Please enter a valid LOTS amount.');
+        return;
+    }
+    if (lotsAmount > lotsBalance) {
+        alert('Insufficient LOTS balance.');
+        return;
+    }
+    lotsBalance -= lotsAmount;
+    document.getElementById('lots-withdraw-result').innerText = `Converted to ${lotsAmount.toFixed(2)} LOTS (No Fee)`;
+    logTransaction(null, null, `${lotsAmount.toFixed(2)} LOTS, Received ${lotsAmount.toFixed(2)} LOTS`, `0.00 Gems`);
+    updateBalances();
+}
+
+function withdrawGems(method) {
+    let gemsAmount = parseFloat(document.getElementById('gems-withdraw').value);
+    if (isNaN(gemsAmount) || gemsAmount < 10) {
+        alert('Minimum withdrawal is 10 Gems.');
+        return;
+    }
+    if (gemsAmount > gemsBalance) {
+        alert('Insufficient Gems balance.');
+        return;
     }
 
-    function startCountdownAndSelectPlayer() {
-        resetAnimationAndHighlight();
+    let gasFee = GAS_FEE_BNB * BNB_PRICE; // Gas fee in USD
+    let fee = gemsAmount * 0.002 + gasFee;
+    let amountAfterFee = (gemsAmount - fee);
 
-        const playerWidth = document.querySelector('.player').offsetWidth;
-        const playerMargin = parseFloat(getComputedStyle(document.querySelector('.player')).marginLeft) +
-            parseFloat(getComputedStyle(document.querySelector('.player')).marginRight);
-        const totalWidth = (playerWidth + playerMargin) * totalPlayers;
-        let speed = 400;
-        const duration = totalWidth / speed;
-
-        animation = gsap.to(playerList, {
-            x: -totalWidth,
-            duration: duration,
-            ease: "none",
-            onComplete: () => {
-                stopAndHighlight();
-            }
-        });
-
-        let countdown = 5;
-        const countdownDisplay = document.getElementById('countdown');
-        countdownDisplay.textContent = countdown;
-
-        countdownInterval = setInterval(() => {
-            countdown--;
-            countdownDisplay.textContent = countdown;
-            if (countdown === 0) {
-                clearInterval(countdownInterval);
-                stopAndHighlight();
-            }
-        }, 1000);
+    if (method === 'BNB') {
+        amountAfterFee /= BNB_TO_GEMS;
     }
 
-    function stopAndHighlight() {
-        if (animation) {
-            animation.kill();
-        }
-        const arrowRect = arrow.getBoundingClientRect();
-        const arrowX = arrowRect.left + arrowRect.width / 2;
-        const containerRect = playerList.getBoundingClientRect();
-        const containerX = containerRect.left;
-        const containerWidth = containerRect.width;
-        const playerIndex = Math.floor((arrowX - containerX) / (containerWidth / totalPlayers));
-        const selectedPlayer = playerList.children[playerIndex];
-        selectedPlayer.classList.add('selected');
-    
-        const selectedPlayerItem = document.createElement('div');
-        selectedPlayerItem.classList.add('selected-player');
-    
-        const label = countdownCounter + 1;
-        const labels = ['5th', '4th', '3rd', '2nd', '1st', 'JACKPOT'];
-        const labelElement = document.createElement('div');
-        labelElement.textContent = labels[label - 1];
-        labelElement.classList.add('label');
-        selectedPlayerItem.appendChild(labelElement);
-    
-        const playerNameElement = document.createElement('div');
-        playerNameElement.textContent = selectedPlayer.textContent;
-        playerNameElement.classList.add('player-name');
-        selectedPlayerItem.appendChild(playerNameElement);
-    
-        let amount = 0;
-        switch (labels[label - 1]) {
-            case 'JACKPOT':
-                amount = 54420;
-                break;
-            case '5th':
-                amount = 120;
-                break;
-            case '4th':
-                amount = 200;
-                break;
-            case '3rd':
-                amount = 350;
-                break;
-            case '2nd':
-                amount = 680;
-                break;
-            case '1st':
-                amount = 1000;
-                break;
-            default:
-                amount = 0;
-                break;
-        }
-    
-        const formattedAmount = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
-    
-        const amountContainer = document.createElement('div');
-        amountContainer.classList.add('amount-container');
-        const amountElement = document.createElement('div');
-        amountElement.textContent = formattedAmount;
-        amountElement.classList.add('amount');
-        amountContainer.appendChild(amountElement);
-        selectedPlayerItem.appendChild(amountContainer);
-    
-        selectedPlayersWrapper.insertBefore(selectedPlayerItem, selectedPlayersWrapper.firstChild);
-    }
-    
-
-    startCountdownAndSelectPlayer();
-
-    function countdownButtonClickHandler() {
-        clearInterval(countdownInterval);
-        resetAnimationAndHighlight();
-        startCountdownAndSelectPlayer();
-        countdownCounter++;
-        if (countdownCounter >= 5) {
-            clearInterval(countdownButtonInterval);
-            countdownButton.removeEventListener('click', countdownButtonClickHandler);
-        }
-    }
-
-    const countdownButtonInterval = setInterval(() => {
-        if (countdownCounter < 5) {
-            countdownButtonClickHandler();
-        } else {
-            clearInterval(countdownButtonInterval);
-        }
-    }, 7000);
-
-    const countdownButton = document.getElementById('resetButton');
-    countdownButton.addEventListener('click', countdownButtonClickHandler);
-});
-
-
-// JavaScript code to fetch and display the token price
-document.addEventListener('DOMContentLoaded', () => {
-    // Fetch token price from dexscreener
-    fetch('https://api.dexscreener.com/eth/0xTokenPrice') // Replace '0xTokenPrice' with the actual token identifier
-        .then(response => response.json())
-        .then(data => {
-            const tokenPrice = data.price; // Assuming the price is available in the 'price' field of the response
-            const tokenPriceElement = document.getElementById('token-price');
-            if (tokenPriceElement) {
-                tokenPriceElement.textContent = `Token Price: ${tokenPrice}`; // Display token price next to the logo
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching token price:', error);
-        });
-});
-
-// JavaScript code to display the static token price
-document.addEventListener('DOMContentLoaded', () => {
-    const tokenPriceElement = document.getElementById('token-price');
-    if (tokenPriceElement) {
-        tokenPriceElement.textContent = '$0.0002741'; // Display static token price next to the logo
-    }
-});
+    gemsBalance -= gemsAmount;
+    document.getElementById('gems-withdraw-result').innerText = `Converted to ${amountAfterFee.toFixed(8)} ${method} (Fee: ${fee.toFixed(2)} Gems)`;
+    logTransaction(null, null, `${gemsAmount.toFixed(2)} Gems, Received ${amountAfterFee.toFixed(8)} ${method}`, `${fee.toFixed(2)} Gems`);
+    updateBalances();
+}
