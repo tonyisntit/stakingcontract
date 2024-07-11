@@ -3,88 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOTS</title>
+    <title>LOTS LOTTOS</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="container">
+        <header>
+            <div class="balances">
+                <div class="balance">
+                    <span>LOTS Balance: </span><span id="lots-balance">0</span>
+                </div>
+                <div class="balance">
+                    <span>Gems Balance: </span><span id="gems-balance">0</span>
+                </div>
+            </div>
+            <div class="prices">
+                <div class="price">
+                    <span>BNB Price: </span><span>$530</span>
+                </div>
+                <div class="price">
+                    <span>LOTS Price: </span><span>$0.0002</span>
+                </div>
+            </div>
+        </header>
 
-    <header class="header">
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo" class="logo">
-            <p id="token-price" class="token-price"></p> <!-- Token price element -->
-        </div>
-        <div class="balance-wrapper">
-            <div class="lots-balance">
-                <img src="logoO.png" alt="LOTS" class="currency-icon">
-                <p class="balance">25,000,000</p>
-            </div>
-        </div>
-        <div class="balance-wrapper">
-            <div class="usd-balance">
-                <img src="usdtlogo.png" alt="USD" class="currency-icon">
-                <p class="balance">350</p>
-            </div>
-        </div>
-        <div class="register-wrapper">
-            <button id="register-tab" class="register-btn">Wallet</button>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">&#9776;</button>
-            <div class="dropdown-content">
-                <a href="index.html" id="buy-tab" class="nav-link">Account</a>
-            </div>
-        </div>
-    </header>
+        <div class="main-section">
+            <section class="conversion-section">
+                <h2>Deposit</h2>
+                <div class="box">
+                    <label for="usdt-deposit">Deposit gems via USDT:</label>
+                    <input type="number" id="usdt-deposit" placeholder="Enter amount in USDT">
+                    <button onclick="convertUSDT()">Deposit Gems</button>
+                    <p id="usdt-result"></p>
+                </div>
+                <div class="box">
+                    <label for="bnb-deposit">Deposit gems via BNB:</label>
+                    <input type="number" id="bnb-deposit" placeholder="Enter amount in BNB">
+                    <button onclick="convertBNB()">Deposit Gems</button>
+                    <p id="bnb-result"></p>
+                </div>
+                <div class="box">
+                    <label for="lots-deposit">Deposit lots via LOTS:</label>
+                    <input type="number" id="lots-deposit" placeholder="Enter amount in LOTS">
+                    <button onclick="convertLOTS()">Deposit LOTS</button>
+                    <p id="lots-result"></p>
+                </div>
+            </section>
 
-    <div class="top-buttons">
-        <button class="how-it-works-btn">How it works</button>
-        <button class="buy-lots-btn">Buy LOTS</button>
+            <section class="conversion-section">
+                <h2>Withdrawal</h2>
+                <div class="box">
+                    <label for="lots-withdraw">Withdraw LOTS:</label>
+                    <input type="number" id="lots-withdraw" placeholder="Enter amount in LOTS">
+                    <button onclick="withdrawLOTS()">Withdraw LOTS</button>
+                    <p id="lots-withdraw-result"></p>
+                </div>
+                <div class="box">
+                    <label for="gems-withdraw">Withdraw Gems:</label>
+                    <input type="number" id="gems-withdraw" placeholder="Enter amount in Gems">
+                    <button onclick="withdrawGems('USDT')">Withdraw to USDT</button>
+                    <button onclick="withdrawGems('BNB')">Withdraw to BNB</button>
+                    <p id="gems-withdraw-result"></p>
+                </div>
+            </section>
+        </div>
+
+        <div class="logs-section">
+            <table class="log-table">
+                <thead>
+                    <tr>
+                        <th>Deposit Log</th>
+                        <th>Deposit Fee</th>
+                        <th>Withdrawal Log</th>
+                        <th>Withdrawal Fee</th>
+                    </tr>
+                </thead>
+                <tbody id="log-table-body">
+                    <!-- Log entries will be added here -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="ppjpwrapper-container">
-        <div class="prize-pool-wrapper">
-            <img src="poolbg.png" alt="Prize Pool Image" class="wrapper-image">
-            <div class="wrapper-content">
-                <h2>PrizePool</h2>
-                <p class="prize-amount">$2,350</p>
-            </div>
-        </div>
-        <div class="jackpot-wrapper">
-            <img src="jackpotbg.png" alt="Jackpot Image" class="wrapper-image">
-            <div class="wrapper-content">
-                <h2>Jackpot</h2>
-                <p class="jackpot-amount">$54,420</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="wrapper">
-        <div class="vertical-line"></div>
-        <div class="arrow" id="arrow"></div>
-        <div class="container">
-            <div class="player-list" id="player-list"></div>
-        </div>
-    </div>
-    <div id="countdown"></div>
-
-    <button id="resetButton">Reset</button>
-
-    <footer>
-        <div class="footer-content">
-            <p class="rights">© 2024 LOTS. All rights reserved.</p>
-            <div class="social-media">
-                <a href="https://discord.gg/dqMGGjnU" target="_blank"><img src="discord.png" alt="Discord"></a>
-                <a href="#"><img src="twitter.png" alt="Twitter"></a>
-                <a href="#"><img src="tele.png" alt="Tele"></a>
-            </div>
-            <div class="partnership">
-                <p>Partnered with:</p>
-                <a href="https://monstro.fun/" target="_blank"><img src="monstro-logo.png" alt="Monstro.oi Logo" class="partner-logo"></a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
